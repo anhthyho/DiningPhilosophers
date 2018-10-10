@@ -63,7 +63,7 @@ public class Philosophers {
 			}
 		}
 		if (!waiter.tryLock()) {
-			System.out.println("waiter locked");
+			//  System.out.println("waiter locked");
 		}
 
 	}
@@ -83,7 +83,7 @@ public class Philosophers {
 			}
 		}
 		if (!waiter.tryLock()) {
-			System.out.println("waiter locked");
+			//  System.out.println("waiter locked");
 		}
 	}
 
@@ -102,18 +102,18 @@ public class Philosophers {
 	public void eat() {
 		if (fork1 && fork2) {
 			waiter.unlock();
-			System.out.println("waiter unlocked");
+			//  System.out.println("waiter unlocked");
 			thinking = false;
 			finish = true;
-			System.out.println("finished eating");
+			//  System.out.println("finished eating");
 			setfork1("down");
-			System.out.println("put down fork 1");
+			//  System.out.println("put down fork 1");
 			setfork2("down");
-			System.out.println("put down fork 2");
+			//  System.out.println("put down fork 2");
 			eating = false;
 			thinking = true;
 			waiter.lock();
-			System.out.println("waiter locked");
+			//  System.out.println("waiter locked");
 		}
 	}
 
@@ -135,40 +135,40 @@ public class Philosophers {
 			for (int i = 0; i < philosophers.length; i++) {
 				if (philosophers[i].finish)
 					all.add(philosophers[i].finish);
-				//System.out.println("how many have finished: " +all.size());
+				////  System.out.println("how many have finished: " +all.size());
 
 			}
 			if (all.size() >= 5) {
 				AllDone = true;
-				System.out.println("all done");
+				//  System.out.println("all done");
 				return;
 			}
 			int r = rand.nextInt(philosophers.length);
-			System.out.println("next: " +r);
+			//  System.out.println("next: " +r);
 			String pi = "p" + r;
 			Philosophers p = philosophers[r];
 			if (p.finish) {
-				System.out.println(pi + " finished already");
+				//  System.out.println(pi + " finished already");
 			}
 			if (!p.finish && r < 1) {
 				p.waiter.unlock();
 			}
 			if (!p.finish && p.waiter.tryLock()) {
-				System.out.println("Has not finished, eating now: " + pi);
+				//  System.out.println("Has not finished, eating now: " + pi);
 				if (r < 1) {
 					p.setfork1("up");
 					p.setfork2("up");
-					System.out.println("pick up forks");
+					//  System.out.println("pick up forks");
 				} else if (!philosophers[r - 1].fork1 && !philosophers[r - 1].fork2) {
 					p.setfork1("up");
 					p.setfork2("up");
-					System.out.println("pick up forks");
+					//  System.out.println("pick up forks");
 				}
 				p.eating = true;
 				p.thinking = false;
 				while (p.eating) {
 					for (Philosophers t : philosophers) {
-						System.out.println(t.getName() + " Eating: " + t.eating + " Thinking: " + t.thinking);
+						//  System.out.println(t.getName() + " Eating: " + t.eating + " Thinking: " + t.thinking);
 					}
 					p.eat();
 				}
